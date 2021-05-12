@@ -14,7 +14,19 @@
   width: 80%;
   margin: auto;
   padding: 30px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.inl-blk {
+  display: inline-block;
+}
+
+.albums-container {
   flex-wrap: wrap;
+  border-radius: 10px;
 }
 
 .flex {
@@ -23,7 +35,7 @@
 
 .album {
   width: calc(100% / 3);
-  padding: 10px;
+  padding: 15px;
   flex-direction: column;
   align-items: center;
 }

@@ -12,13 +12,17 @@
 <body>
 
   <div id="app">
-    <div class="container flex">
-      <div class="album flex" v-for="album in albumsList">
-        <img class="border" :src="album.poster" :alt="album.title" />
-        <h3>{{album.title}}</h3>
-        <h4>{{album.author}}</h4>
-        <span>{{album.year}}</span>
+    <div class="container">
+      <h1 class="mb-10 inl-blk">Albums</h1>
+      <div v-if="loading === false" class="albums-container flex border">
+        <div class="album flex" v-for="album in albumsList">
+          <img class="border" :src="album.poster" :alt="album.title" />
+          <h3>{{album.title}}</h3>
+          <h4>{{album.author}}</h4>
+          <span>{{album.year}}</span>
+        </div>
       </div>
+      <span v-else>Caricamento in corso...</span>
     </div>
   </div>
 
