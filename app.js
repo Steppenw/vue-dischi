@@ -2,7 +2,8 @@ const app = new Vue({
   el: "#app",
   data: {
     albumsList: [],
-    loading: false
+    loading: false,
+    genres: []
   },
   methods: {
     
@@ -23,9 +24,10 @@ const app = new Vue({
       //console.log('albumsList', this.albumsList);
     });*/
     
-    for (let i=0; i<10; i++) {
+    /*for (let i=0; i<10; i++) {
       axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((resp) => {
         //console.log(i + 1, resp.data.response[i]);
+        //console.log(i + 1, resp.data.response[i].genre);
         ajaxAlbumsList.push(resp.data.response[i]);
 
         if (ajaxAlbumsList.length === 10) {
@@ -34,6 +36,20 @@ const app = new Vue({
           this.loading = false;
         }
       });
-    }
+    }*/
+
+    axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((resp) => {
+      for (let i=0; i<resp.data.response.length; i++) {
+        //console.log(i+1, resp.data.response[i]);
+        //console.log(i+1, resp.data.response[i].genre);
+        ajaxAlbumsList.push(resp.data.response[i]);
+
+        if (ajaxAlbumsList.length === resp.data.response.length) {
+          this.albumsList = ajaxAlbumsList;
+
+          this.loading = false;
+        }
+      }
+    });
   }
 });
