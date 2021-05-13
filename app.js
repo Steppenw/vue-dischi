@@ -44,6 +44,10 @@ const app = new Vue({
         //console.log(i+1, resp.data.response[i].genre);
         ajaxAlbumsList.push(resp.data.response[i]);
 
+        if (!this.genres.includes(resp.data.response[i].genre)) {
+          this.genres.push(resp.data.response[i].genre);
+        }
+
         if (ajaxAlbumsList.length === resp.data.response.length) {
           this.albumsList = ajaxAlbumsList;
 
