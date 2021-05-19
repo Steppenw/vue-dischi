@@ -3,14 +3,36 @@ const app = new Vue({
   data: {
     albumsList: [],
     loading: false,
-    genres: []
+    genresList: [],
+    filteredAlbumsList: [],
+    byGenre: ''
   },
   methods: {
-    
+    genresOptions() {
+      this.albumsList.forEach(album => {
+        if (!this.genresList.includes(album.genre)) {
+          this.genresList.push(album.genre);
+        }
+      });
+    },
+
+    genreChoice() {
+      if (this.byGenre === '') {
+        
+        this.filteredAlbumsList = this.albumsList;
+        //this.filteredAlbumsList = [...this.albumsList];
+        
+        return;
+      }
+
+      this.filteredAlbumsList = this.albumsList.filter((album) => {
+        return album.genre === this.byGenre;
+      });
+    }
   },
   mounted() {
     
-    const ajaxAlbumsList = [];
+    const tempAlbumsList = [];
     
     this.loading = true;
     
@@ -28,10 +50,10 @@ const app = new Vue({
       axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((resp) => {
         //console.log(i + 1, resp.data.response[i]);
         //console.log(i + 1, resp.data.response[i].genre);
-        ajaxAlbumsList.push(resp.data.response[i]);
+        tempAlbumsList.push(resp.data.response[i]);
 
-        if (ajaxAlbumsList.length === 10) {
-          this.albumsList = ajaxAlbumsList;
+        if (tempAlbumsList.length === 10) {
+          this.albumsList = tempAlbumsList;
 
           this.loading = false;
         }
@@ -42,18 +64,24 @@ const app = new Vue({
       for (let i=0; i<resp.data.response.length; i++) {
         //console.log(i+1, resp.data.response[i]);
         //console.log(i+1, resp.data.response[i].genre);
-        ajaxAlbumsList.push(resp.data.response[i]);
+        tempAlbumsList.push(resp.data.response[i]);
 
-        if (!this.genres.includes(resp.data.response[i].genre)) {
-          this.genres.push(resp.data.response[i].genre);
+        /*if (!this.genresList.includes(resp.data.response[i].genre)) {
+          this.genresList.push(resp.data.response[i].genre);
         }
+        //console.log(this.genresList);*/
 
-        if (ajaxAlbumsList.length === resp.data.response.length) {
-          this.albumsList = ajaxAlbumsList;
+        if (tempAlbumsList.length === resp.data.response.length) {
+          this.albumsList = tempAlbumsList;
 
           this.loading = false;
         }
-      }
+      };
+
+      this.filteredAlbumsList = this.albumsList;
+      
+      this.genresOptions();
+      //console.log(this.genresList);
     });
   }
 });

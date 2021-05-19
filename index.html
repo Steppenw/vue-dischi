@@ -14,8 +14,12 @@
   <div id="app">
     <div class="container">
       <h1 class="mb-10 inl-blk">Albums</h1>
+      <select @click="genreChoice" v-model="byGenre">
+        <option value="">Tutti i generi</option>
+        <option :value="genre" v-for="genre in genresList">{{genre}}</option>
+      </select>
       <div v-if="loading === false" class="albums-container flex border">
-        <div class="album flex" v-for="album in albumsList">
+        <div class="album flex" v-for="album in filteredAlbumsList">
           <img class="border" :src="album.poster" :alt="album.title" />
           <h3>{{album.title}}</h3>
           <h4>{{album.author}}</h4>
