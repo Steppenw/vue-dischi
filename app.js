@@ -61,6 +61,7 @@ const app = new Vue({
     }*/
 
     axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((resp) => {
+      console.log(resp.data.response);
       for (let i=0; i<resp.data.response.length; i++) {
         //console.log(i+1, resp.data.response[i]);
         //console.log(i+1, resp.data.response[i].genre);
